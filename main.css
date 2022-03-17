@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image: url(https://images.creativemarket.com/0.1.0/ps/2092432/1360/837/m1/fpnw/wm1/ms3fqw7ortal9ga68rbwzrai8ypj7bm1ywzl8tkiu5bg5jpzoufei0bajstqeq2e-.jpg?1483614375&s=99e73094be6867b01e8c695c0c89fc5f);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 98vh;
+}
+ul {
+  padding: 0;
+}
+.container {
+  width: 750px;
+  height: 500px;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+.pitsa {
+  display: flex;
+  border-radius: 20px;
+  background-color: #fff;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.pitsa__left {
+  width: 370px;
+  padding: 35px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow-y: scroll;
+
+}
+.Pitsa__title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.pitsa__list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid yellow;
+  background-color: #FFE5C4;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  height: 100px;
+}
+
+p {
+  margin: 10px;
+  padding: 0;
+}
+
+.pitsa__img {
+  margin-top: -50px;
+  margin-left: -10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.pitsa__info {
+  text-align: center;
+  margin-left: 30px;
+}
+.pitsa__name {
+  font-size: 18px;
+  font-weight: bold;
+}
+.pitsa__cost {
+  font-size: 25px;
+  font-weight: bold;
+}
+.pitsa__btn {
+  background-color: #7B4BFC;
+  padding: 2px 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-bottom: -40px;
+  border: none;
+}
+.pitsa__right {
+  width: 350px;
+  height: 616px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: relative;
+
+}
+.pitsa__righttitle {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.pitsa__right-list {
+  overflow-y:scroll;
+}
+.pitsa__total {
+  background-color: #FFE5C4; 
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0;
+}
+.subtotal {
+  display:inline-block;
+}
+.tax {
+  display:inline-block;
+}
+.total {
+  display:inline-block;
+}

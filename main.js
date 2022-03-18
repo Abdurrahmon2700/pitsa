@@ -60,6 +60,7 @@ for (let i of foodList) {
   li.append(img , div)
   LeftList.append(li)
 }
+
 let arr = []
 function rightCard( id ){
   if(arr.includes(id))return

@@ -27,19 +27,19 @@ let foodList = [
   }
 ]
 
-
-
 for (let i of foodList) {
   let li = document.createElement("li");
   let img = document.createElement("img");
   let div = document.createElement("div");
   let p1 = document.createElement("p");
   let p2 = document.createElement("p");
+  let p3 = document.createElement("p");
   let button = document.createElement("button");
   
   button.className = "pitsa__btn"
   p1.className = "pitsa__name"
   p2.className = "pitsa__cost"
+  p3.className = "count"
   div.className = "pitsa__info"
   img.className = "pitsa__img"
   li.className = "pitsa__list"
@@ -55,9 +55,11 @@ for (let i of foodList) {
       sub.textContent = i.price
       tax.textContent = (+i.price/10).toFixed(2)
       rightCard(button.id)
+      p3.textContent = +p3.textContent+1;
+      console.log(p3.textContent);
   }
   div.append(p1, p2, button)
-  li.append(img , div)
+  li.append(img, div)
   LeftList.append(li)
 }
 
@@ -74,7 +76,9 @@ function rightCard( id ){
   let p3 = document.createElement("p");
   let button_plus = document.createElement("button");
   let button_minus = document.createElement("button");
-  
+  let button = document.createElement("button");
+
+  button.className = "pitsa__btn"
   button_plus.className = "pitsa__btn"
   button_minus.className = "pitsa__btn"
   p1.className = "pitsa__name"
@@ -92,15 +96,24 @@ function rightCard( id ){
   button_plus.textContent = "+"
   button_minus.textContent = "-"
 
+  button.onclick = (even)=>{
+    even.preventDefault()
+    console.log("+");
+    subtotal = (parseFloat(sub.textContent)+ parseFloat(li.childNodes[1].childNodes[2].textContent)).toFixed(2);
+    sub.textContent = subtotal
+   tax.textContent = (parseFloat(tax.textContent) + parseFloat(li.childNodes[1].childNodes[2].textContent/10)).toFixed(2);
+   p3.textContent = +p3.textContent+1;
+  }
+
   button_plus.onclick = (even)=>{
       even.preventDefault()
       console.log("+");
       subtotal = (parseFloat(sub.textContent)+ parseFloat(li.childNodes[1].childNodes[2].textContent)).toFixed(2);
       sub.textContent = subtotal
      tax.textContent = (parseFloat(tax.textContent) + parseFloat(li.childNodes[1].childNodes[2].textContent/10)).toFixed(2);
-     
      p3.textContent = +p3.textContent+1
     }
+
     button_minus.onclick = (even)=>{
       even.preventDefault()
       console.log("-");
@@ -116,7 +129,7 @@ function rightCard( id ){
       }
       p3.textContent = +p3.textContent -1 
   }
-  div.append(p3 , p1, p2, button_minus, button_plus)
+  div.append(p3, p1, p2, button_minus, button_plus)
   li.append(img , div)
   RightList.append(li)
 }

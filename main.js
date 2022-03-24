@@ -1,135 +1,97 @@
-let LeftList = document.getElementById('leftcard');
-let RightList = document.getElementById('rightlist');
-let foodList = [
-  {
-    id: 1,
-    imgUrl: 'https://quizzical-murdock-fa5953.netlify.app/img/pizza1.png',
-    name: 'Pepperoni',
-    price: 2.23
-  },
-  {
-    id: 2,
-    imgUrl: 'https://quizzical-murdock-fa5953.netlify.app/img/pizza3.jpg',
-    name: 'Chessy',
-    price: 5.99
-  },
-  {
-    id: 3,
-    imgUrl: 'https://quizzical-murdock-fa5953.netlify.app/img/pizza2.jpg',
-    name: 'Margarits',
-    price: 7.48
-  },
-  {
-    id: 4,
-    imgUrl: 'https://quizzical-murdock-fa5953.netlify.app/img/pizza3.jpg',
-    name: 'Hawaiian',
-    price: 9.32
-  }
-]
+const menuList = document.querySelector(".menu__list");
+const cartList = document.querySelector(".cart__list");
+const subtotal = document.querySelector(".subtotal");
+let newPizzaArray = [];
+let total = 0;
 
-for (let i of foodList) {
+pizzaArray.forEach((item) => {
   let li = document.createElement("li");
-  let img = document.createElement("img");
-  let div = document.createElement("div");
-  let p1 = document.createElement("p");
-  let p2 = document.createElement("p");
-  let p3 = document.createElement("p");
-  let button = document.createElement("button");
-  
-  button.className = "pitsa__btn"
-  p1.className = "pitsa__name"
-  p2.className = "pitsa__cost"
-  p3.className = "count"
-  div.className = "pitsa__info"
-  img.className = "pitsa__img"
-  li.className = "pitsa__list"
+  li.className = "menu__item pizza";
+  li.innerHTML = `
+  <img class="pizza__img" src=${item.imgUrl} alt="pizza" />
+  <div class="pizza__name">
+    <p class="pizza__p">${item.name}</p>
+    <span class="pizza__price">$${item.price}</span>
+    <button class="pizza__btn" onclick="addItemArray(${item.id})">
+      Add to Cart
+    </button>
+  </div>
+  `;
 
-  img.src =  i.imgUrl
-  p1.textContent = i.name
-  p2.textContent = i.price
-  button.id = i.id
-  button.textContent = "Add to card"
+  menuList.appendChild(li);
+});
 
-  button.onclick = (even)=>{
-      even.preventDefault()
-      sub.textContent = i.price
-      tax.textContent = (+i.price/10).toFixed(2)
-      rightCard(button.id)
-      p3.textContent = +p3.textContent+1;
-      console.log(p3.textContent);
-  }
-  div.append(p1, p2, button)
-  li.append(img, div)
-  LeftList.append(li)
+function addItemArray(listId) {
+  newPizzaArray.push(pizzaArray.filter((item) => item.id === listId)[0]);
+  addCart(newPizzaArray);
 }
 
-let arr = []
-function rightCard( id ){
-  if(arr.includes(id))return
-  arr.push(id)
-  let count = 1
-  let li = document.createElement("li");
-  let img = document.createElement("img");
-  let div = document.createElement("div");
-  let p1 = document.createElement("p");
-  let p2 = document.createElement("p");
-  let p3 = document.createElement("p");
-  let button_plus = document.createElement("button");
-  let button_minus = document.createElement("button");
-  let button = document.createElement("button");
+function addCart(cartPizzaArray) {
+  let arr = cartPizzaArray;
+  let topArr = [];
 
-  button.className = "pitsa__btn"
-  button_plus.className = "pitsa__btn"
-  button_minus.className = "pitsa__btn"
-  p1.className = "pitsa__name"
-  p2.className = "pitsa__cost"
-  p3.className = "count"
-  div.className = "pitsa__info"
-  img.className = "pitsa__img"
-  li.className = "pitsa__list"
+  arr.forEach((item) => {
+    if (arr != "") topArr.push(arr[0]);
+    arr = arr.filter((el) => {
+      return arr[0].id != el.id;
+    });
+  });
 
-  p3.textContent = count
-  img.src =  foodList[id-1].imgUrl
-  p1.textContent = foodList[id-1].name
-  p2.textContent = foodList[id-1].price
-  button_minus.id = foodList[id-1].id
-  button_plus.textContent = "+"
-  button_minus.textContent = "-"
+  let li = 0;
+  let listArr = [];
+  total = 0;
 
-  button.onclick = (even)=>{
-    even.preventDefault()
-    console.log("+");
-    subtotal = (parseFloat(sub.textContent)+ parseFloat(li.childNodes[1].childNodes[2].textContent)).toFixed(2);
-    sub.textContent = subtotal
-   tax.textContent = (parseFloat(tax.textContent) + parseFloat(li.childNodes[1].childNodes[2].textContent/10)).toFixed(2);
-   p3.textContent = +p3.textContent+1;
-  }
+  topArr.forEach((item) => {
+    let count = cartPizzaArray.filter((element) => {
+      return element.id == item.id;
+    });
+    li = `
+    <li class="menu__item pizza cart__item">
+      <img class="pizza__img" src=${item.imgUrl} alt="pizza" />
+      <div class="pizza__name">
+        <p class="pizza__p">${item.name}</p>
+        <span id="total" class="count">
+          ${count.length}
+        </span>
+        <span class="pizza__price">$${item.price}</span>
+        <div class="btn-group">
+          <button class="pizza__btn remove" onclick="addItemArray(${item.id})">
+            +
+          </button>
+          <button class="pizza__btn remove" onclick="remove(${item.id})">
+            -
+          </button>
+        </div>
+      </div>
+    </li>
+    `;
 
-  button_plus.onclick = (even)=>{
-      even.preventDefault()
-      console.log("+");
-      subtotal = (parseFloat(sub.textContent)+ parseFloat(li.childNodes[1].childNodes[2].textContent)).toFixed(2);
-      sub.textContent = subtotal
-     tax.textContent = (parseFloat(tax.textContent) + parseFloat(li.childNodes[1].childNodes[2].textContent/10)).toFixed(2);
-     p3.textContent = +p3.textContent+1
+    listArr.push(li);
+    cartList.innerHTML = listArr.join("");
+  });
+
+  cartPizzaArray.forEach((item) => {
+    total += item.price;
+  });
+
+  subtotal.innerHTML = total.toFixed(2);
+}
+
+function remove(elId) {
+  let count = 0;
+  let a = [];
+
+  newPizzaArray.forEach((element) => {
+    if (element.id === elId && count === 0) {
+      count++;
+    } else {
+      a.push(element);
     }
+  });
 
-    button_minus.onclick = (even)=>{
-      even.preventDefault()
-      console.log("-");
-      sub.textContent = (parseFloat(sub.textContent)- parseFloat(li.childNodes[1].childNodes[2].textContent)).toFixed(2);
-      tax.textContent = (parseFloat(tax.textContent)-parseFloat(li.childNodes[1].childNodes[2].textContent/10)).toFixed(2);
-
-      if (+p3.textContent==1){
-        li.remove()
-        let index = arr.findIndex((id)=>button_minus.id)
-        arr.splice(index,1)
-        console.log(arr);
-        return
-      }
-      p3.textContent = +p3.textContent -1 
+  newPizzaArray = a;
+  if (newPizzaArray.length === 0) {
+    cartList.innerHTML = "";
   }
-  div.append(p3, p1, p2, button_minus, button_plus)
-  li.append(img , div)
-  RightList.append(li)
+  addCart(newPizzaArray);
 }
